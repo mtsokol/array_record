@@ -43,7 +43,7 @@ function main() {
   export USE_BAZEL_VERSION="${BAZEL_VERSION}"
   bazel clean
   #bazel run //:requirements.update
-  bazel build ... --action_env MACOSX_DEPLOYMENT_TARGET='11.0' --action_env PYTHON_BIN_PATH="${PYTHON_BIN}" --action_env PYTHON_CONFIG_BIN_PATH="${PYTHON_CONFIG_BIN}"
+  bazel build ... --subcommands --verbose_failures --action_env MACOSX_DEPLOYMENT_TARGET='11.0' --action_env PYTHON_BIN_PATH="${PYTHON_BIN}" --action_env PYTHON_CONFIG_BIN_PATH="${PYTHON_CONFIG_BIN}"
   bazel test --verbose_failures --test_output=errors ... --action_env PYTHON_BIN_PATH="${PYTHON_BIN}" --action_env PYTHON_CONFIG_BIN_PATH="${PYTHON_CONFIG_BIN}"
 
   DEST="/tmp/array_record/all_dist"
