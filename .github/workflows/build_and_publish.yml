@@ -37,16 +37,18 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup Developer Command Prompt
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2019' }}
         uses: ilammy/msvc-dev-cmd@v1.4.1
       - name: Set up Visual Studio shell
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2019' }}
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
       - name: Setup MS Build
-        if: ${{ matrix.os == 'windows-2022' }}
-        uses: microsoft/setup-msbuild@v1.1
+        if: ${{ matrix.os == 'windows-2019' }}
+        uses: microsoft/setup-msbuild@v1
+        # with:
+        #   vs-version: '17.0'
       - uses: "actions/checkout@v3"
       - name: Create directory
         run: |
