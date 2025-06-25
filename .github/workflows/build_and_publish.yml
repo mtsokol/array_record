@@ -21,10 +21,11 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
         # Workaround for https://github.com/actions/runner-images/issues/7675
-        os: [macos-14, ubuntu-22.04, ubuntu-22.04-arm, windows-2019]
+        # https://github.com/bazelbuild/bazel/issues/18816
+        os: [macos-14, ubuntu-22.04, ubuntu-22.04-arm, windows-2022]
 
     env:
-      USE_BAZEL_VERSION: "5.4.0"
+      USE_BAZEL_VERSION: "6.3.0"
     steps:
       - name: Set up Bazel
         uses: bazel-contrib/setup-bazel@0.15.0
@@ -37,16 +38,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup Developer Command Prompt
-        if: ${{ matrix.os == 'windows-2019' }}
-        uses: ilammy/msvc-dev-cmd@v1.4.1
+        if: ${{ matrix.os == 'windows-2022' }}
+        uses: ilammy/msvc-dev-cmd@v1.13.0
       - name: Set up Visual Studio shell
-        if: ${{ matrix.os == 'windows-2019' }}
+        if: ${{ matrix.os == 'windows-2022' }}
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
       - name: Setup MS Build
-        if: ${{ matrix.os == 'windows-2019' }}
-        uses: microsoft/setup-msbuild@v1
+        if: ${{ matrix.os == 'windows-2022' }}
+        uses: microsoft/setup-msbuild@v2
         # with:
         #   vs-version: '17.0'
       - uses: "actions/checkout@v3"
@@ -60,7 +61,7 @@ jobs:
           export PYTHON_VERSION=${{ matrix.python-version }}
           export PYTHON_MAJOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f1)
           export PYTHON_MINOR_VERSION=$(echo $PYTHON_VERSION | cut -d. -f2)
-          export BAZEL_VERSION="5.4.0"
+          export BAZEL_VERSION="6.3.0"
           export OUTPUT_DIR="/tmp/array_record"
           export SOURCE_DIR="/tmp/array_record"
           . "${SOURCE_DIR}"'/oss/runner_common.sh'
