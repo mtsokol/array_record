@@ -12,4 +12,4 @@
   PYTHON_VERSION=3.9 ./oss/build_whl.sh
   ```
 
-3. Wheels are in `all_dist/`.
+3. Wheels are in `/tmp/array_record/all_dist/`.

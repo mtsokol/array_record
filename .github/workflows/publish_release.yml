@@ -1,0 +1,21 @@
+name: Build and Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_tests:
+        description: 'Run unit tests'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/build_and_publish_template.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      pypi_project_url: https://pypi.org/project/array-record
+      run_tests: ${{ inputs.run_tests }}
+      is_nightly: false
