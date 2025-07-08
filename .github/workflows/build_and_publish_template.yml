@@ -8,9 +8,6 @@ on:
       pypi_project_url:
         required: true
         type: string
-      run_tests:
-        required: true
-        type: boolean
       is_nightly:
         required: true
         type: boolean
@@ -60,8 +57,6 @@ jobs:
           export BAZEL_VERSION="7.2.1"
           export OUTPUT_DIR="/tmp/array_record"
           export SOURCE_DIR="/tmp/array_record"
-          export RUN_TESTS=${{ inputs.run_tests }}
-          export IS_NIGHTLY=${{ inputs.is_nightly }}
           . "${SOURCE_DIR}"'/oss/runner_common.sh'
           build_and_test_array_record
       - name: Upload ArrayRecord artifacts

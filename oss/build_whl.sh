@@ -79,6 +79,15 @@ function main() {
   popd
 
   echo $(date) : "=== Output wheel file is in: ${DEST}"
+
+  # Install ArrayRecord from the wheel and run smoke tests.
+  # TF is not available on Python 3.13 and above.
+  if (( "${PYTHON_MINOR_VERSION}" < 13 )); then
+    $PYTHON_BIN -m pip install --find-links=/tmp/grain/all_dist --pre array-record
+    $PYTHON_BIN -m pip install jax tensorflow grain
+    $PYTHON_BIN oss/test_with_grain.py
+    $PYTHON_BIN oss/test_with_tf.py
+  fi
 }
 
 main
