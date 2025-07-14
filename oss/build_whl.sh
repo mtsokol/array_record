@@ -87,6 +87,8 @@ function main() {
   echo $(date) : "=== Output wheel file is in: ${DEST}"
 
   # Install ArrayRecord from the wheel and run smoke tests.
+  $PYTHON_BIN -c 'import array_record'
+  $PYTHON_BIN -c 'from array_record.python import array_record_data_source'
   # TF is not available on Python 3.13 and above.
   if [ "$(uname)" != "Darwin" ] && (( "${PYTHON_MINOR_VERSION}" < 13 )); then
     $PYTHON_BIN -m pip install --find-links="${DEST}" --pre array-record
